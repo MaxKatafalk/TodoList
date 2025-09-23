@@ -19,4 +19,28 @@ namespace TodoList
             Application.Run(new Form1());
         }
     }
+
+    public class TodoTask
+    {
+        public string Title;
+        public bool IsCompleted;
+        public DateTime Date;
+
+        public TodoTask(string title)
+        {
+            Title = title;
+            IsCompleted = false;
+            Date = DateTime.Now;
+        }
+
+        public override string ToString()
+        {
+            string status = IsCompleted ? "[✔] " : "[   ] ";
+            string date = Date.ToString("dd.MM.yyyy");
+
+            string text = status + Title + " (" + date + ")";
+
+            return text;
+        }
+    }
 }
