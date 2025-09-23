@@ -16,6 +16,7 @@ namespace TodoList
         private TextBox textBox1;
         private Button button1;
         private ListBox listBox1;
+        private Button FilterButton;
 
         private List<TodoTask> tasks = new List<TodoTask>();
         public Form1()
@@ -42,9 +43,32 @@ namespace TodoList
             listBox1.Height = 200;
             listBox1.DoubleClick += ListBox1_DoubleClick;
 
+            FilterButton = new Button();
+            FilterButton.Location = new Point(320, 10);
+            FilterButton.Width = 100;
+            FilterButton.Text = "Сортировать ▲";
+            FilterButton.Click += FilterButton_Click;
+
+            Controls.Add(FilterButton);
             Controls.Add(button1);
             Controls.Add(listBox1);
             Controls.Add(textBox1);
+        }
+
+        private void FilterButton_Click(object sender, EventArgs e)
+        {
+            tasks.Sort(CompareTasks);
+
+            listBox1.Items.Clear();
+            foreach (var task in tasks)
+            {
+                listBox1.Items.Add(task);
+            }
+        }
+
+        private int CompareTasks(TodoTask t1, TodoTask t2)
+        {
+            return string.Compare(t1.Title, t2.Title);
         }
 
         private void Button1_Click(object sender, EventArgs e)
