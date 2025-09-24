@@ -35,7 +35,6 @@ namespace TodoList
             button1.Location = new Point(220, 10);
             button1.Text = "Добавить";
             button1.Click += Button1_Click;
-            button1.Click += Button1_Click;
 
             listBox1 = new ListBox();
             listBox1.Location = new Point(10, 40);
@@ -73,13 +72,15 @@ namespace TodoList
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            string taskTitle = textBox1.Text.Trim();
-            if (!string.IsNullOrEmpty(taskTitle))
+            EditTaskForm editForm = new EditTaskForm();
+
+            if (editForm.ShowDialog() == DialogResult.OK)
             {
-                TodoTask task = new TodoTask(taskTitle);
-                tasks.Add(task);
-                listBox1.Items.Add(task);
-                textBox1.Clear();
+                if (editForm.ResultTask != null)
+                {
+                    tasks.Add(editForm.ResultTask);
+                    listBox1.Items.Add(editForm.ResultTask);
+                }
             }
         }
 
@@ -94,5 +95,7 @@ namespace TodoList
         }
 
     }
+
+    
 }
 
