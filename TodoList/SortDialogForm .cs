@@ -8,6 +8,9 @@ public class SortDialogForm : Form
 
     public SortDialogForm()
     {
+        this.BackColor = Color.FromArgb(60, 60, 60);
+        this.ForeColor = Color.White;
+
         Text = "Выберите сортировку";
         ClientSize = new Size(250, 180);
         StartPosition = FormStartPosition.CenterScreen;

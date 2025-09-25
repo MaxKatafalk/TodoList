@@ -20,6 +20,8 @@ namespace TodoList
         public Form1()
         {
             InitializeComponent();
+            this.BackColor = Color.FromArgb(45, 45, 48);
+            this.ForeColor = Color.White;
             SetupControls(); 
         }
 
@@ -29,23 +31,83 @@ namespace TodoList
             button1.Location = new Point(20, 10);
             button1.Width = 290;
             button1.Text = "Добавить задачу";
+            button1.BackColor = Color.FromArgb(100, 100, 100);
+            button1.ForeColor = Color.White;
             button1.Click += Button1_Click;
 
             listBox1 = new ListBox();
             listBox1.Location = new Point(10, 40);
             listBox1.Width = 400;
             listBox1.Height = 200;
+            listBox1.BackColor = Color.FromArgb(37, 37, 38);
+            listBox1.ForeColor = Color.White;
             listBox1.DoubleClick += ListBox1_DoubleClick;
+
+            Button editButton = new Button();
+            editButton.Text = "Редактировать";
+            editButton.Location = new Point(420, 70);
+            editButton.Width = 90;
+            editButton.BackColor = Color.FromArgb(100, 100, 100);
+            editButton.ForeColor = Color.White;
+            editButton.Click += EditButton_Click;
+
+            Button deleteButton = new Button();
+            deleteButton.Text = "Удалить";
+            deleteButton.Location = new Point(420, 100);
+            deleteButton.Width = 90;
+            deleteButton.BackColor = Color.FromArgb(150, 50, 50); 
+            deleteButton.ForeColor = Color.White;
+            deleteButton.Click += DeleteButton_Click;
 
             Button sortButton = new Button();
             sortButton.Text = "Сортировать";
             sortButton.Location = new Point(320, 10);
             sortButton.Width = 100;
+            sortButton.BackColor = Color.FromArgb(100, 100, 100);
+            sortButton.ForeColor = Color.White;
             sortButton.Click += SortButton_Click;
 
             Controls.Add(sortButton);
             Controls.Add(button1);
             Controls.Add(listBox1);
+            Controls.Add(editButton);
+            Controls.Add(deleteButton);
+        }
+
+        private void EditButton_Click(object sender, EventArgs e)
+        {
+            int index = listBox1.SelectedIndex;
+            if (index >= 0)
+            {
+                TodoTask selectedTask = tasks[index];
+
+                EditTaskForm editForm = new EditTaskForm(selectedTask);
+
+                if (editForm.ShowDialog() == DialogResult.OK)
+                {
+                    tasks[index] = editForm.ResultTask;
+
+                    listBox1.Items[index] = editForm.ResultTask;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Выберите задачу для редактирования");
+            }
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            int index = listBox1.SelectedIndex;
+            if (index >= 0)
+            {
+                tasks.RemoveAt(index);
+                listBox1.Items.RemoveAt(index);
+            }
+            else
+            {
+                MessageBox.Show("Выберите задачу для удаления");
+            }
         }
 
         private void SortButton_Click(object sender, EventArgs e)
@@ -106,22 +168,6 @@ namespace TodoList
         private int SortByStatusDescending(TodoTask t1, TodoTask t2)
         {
             return t2.IsCompleted.CompareTo(t1.IsCompleted);
-        }
-
-        private void FilterButton_Click(object sender, EventArgs e)
-        {
-            tasks.Sort(CompareTasks);
-
-            listBox1.Items.Clear();
-            foreach (var task in tasks)
-            {
-                listBox1.Items.Add(task);
-            }
-        }
-
-        private int CompareTasks(TodoTask t1, TodoTask t2)
-        {
-            return string.Compare(t1.Title, t2.Title);
         }
 
         private void Button1_Click(object sender, EventArgs e)

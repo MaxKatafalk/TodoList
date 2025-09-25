@@ -16,6 +16,9 @@ public class EditTaskForm : Form
 
     public EditTaskForm()
     {
+        this.BackColor = Color.FromArgb(60, 60, 60);
+        this.ForeColor = Color.White;
+
         Text = "Добавить Задачу";
         ClientSize = new Size(350, 270);
         StartPosition = FormStartPosition.CenterScreen;
@@ -35,8 +38,8 @@ public class EditTaskForm : Form
         titleTextBox.Width = 170;
         titleTextBox.Text = "Введите название задачи";
         titleTextBox.ForeColor = Color.Gray;
-        titleTextBox.Enter += TitleTextBox_Enter;// при входе в поле
-        titleTextBox.Leave += TitleTextBox_Leave;// при выходе
+        titleTextBox.Enter += TitleTextBox_Enter;
+        titleTextBox.Leave += TitleTextBox_Leave;
 
         Label priorityLabel = new Label();
         priorityLabel.Text = "Приоритет (1-10):";
@@ -71,7 +74,8 @@ public class EditTaskForm : Form
         datePicker = new DateTimePicker();
         datePicker.Location = new Point(130, 112);
         datePicker.Width = 120;
-        datePicker.Format = DateTimePickerFormat.Short;
+        datePicker.Format = DateTimePickerFormat.Custom;
+        datePicker.CustomFormat = "dd.MM.yyyy";
         datePicker.Value = DateTime.Now.AddDays(7);
 
         okButton = new Button();
@@ -97,10 +101,18 @@ public class EditTaskForm : Form
         groupBox.Controls.Add(datePicker);
         Controls.Add(okButton);
         Controls.Add(cancelButton);
-
         Controls.Add(groupBox);
     }
+    public EditTaskForm(TodoTask existingTask) : this() 
+    {
+        titleTextBox.Text = existingTask.Title;
+        priorityNumeric.Value = existingTask.Priority;
+        categoryTextBox.Text = existingTask.Category;
+        datePicker.Value = existingTask.DateTodo;
 
+        titleTextBox.ForeColor = Color.White;
+        categoryTextBox.ForeColor = Color.White;
+    }
     public void TitleTextBox_Enter(object sender, EventArgs e)
     {
         if (titleTextBox.Text == "Введите название задачи")

@@ -46,7 +46,7 @@ namespace TodoList
             string date = Date.ToString("dd.MM.yyyy");
             string dateTodo = DateTodo.ToString("dd.MM.yyyy");
 
-            string text = status + Title + " (" + date + ") - Приоритет " + Priority + " - " + Category + "- до" + DateTodo;
+            string text = status + Title + " (" + date + ") - Приоритет " + Priority + " - " + Category + "- до " + DateTodo;
 
             return text;
         }
