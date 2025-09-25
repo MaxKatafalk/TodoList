@@ -36,7 +36,7 @@ public class EditTaskForm : Form
         titleTextBox.Text = "Введите название задачи";
         titleTextBox.ForeColor = Color.Gray;
         titleTextBox.Enter += TitleTextBox_Enter;// при входе в поле
-        titleTextBox.Leave += TitleTextBox_Leave;// при выходе из поля
+        titleTextBox.Leave += TitleTextBox_Leave;// при выходе
 
         Label priorityLabel = new Label();
         priorityLabel.Text = "Приоритет (1-10):";

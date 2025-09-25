@@ -13,10 +13,8 @@ namespace TodoList
 {
     public partial class Form1 : Form
     {
-        private TextBox textBox1;
         private Button button1;
         private ListBox listBox1;
-        private Button FilterButton;
 
         private List<TodoTask> tasks = new List<TodoTask>();
         public Form1()
@@ -27,31 +25,87 @@ namespace TodoList
 
         private void SetupControls()
         {
-            textBox1 = new TextBox();
-            textBox1.Location = new Point(10, 10);
-            textBox1.Width = 200;
-
             button1 = new Button();
-            button1.Location = new Point(220, 10);
-            button1.Text = "Добавить";
+            button1.Location = new Point(20, 10);
+            button1.Width = 290;
+            button1.Text = "Добавить задачу";
             button1.Click += Button1_Click;
 
             listBox1 = new ListBox();
             listBox1.Location = new Point(10, 40);
-            listBox1.Width = 300;
+            listBox1.Width = 400;
             listBox1.Height = 200;
             listBox1.DoubleClick += ListBox1_DoubleClick;
 
-            FilterButton = new Button();
-            FilterButton.Location = new Point(320, 10);
-            FilterButton.Width = 100;
-            FilterButton.Text = "Сортировать ▲";
-            FilterButton.Click += FilterButton_Click;
+            Button sortButton = new Button();
+            sortButton.Text = "Сортировать";
+            sortButton.Location = new Point(320, 10);
+            sortButton.Width = 100;
+            sortButton.Click += SortButton_Click;
 
-            Controls.Add(FilterButton);
+            Controls.Add(sortButton);
             Controls.Add(button1);
             Controls.Add(listBox1);
-            Controls.Add(textBox1);
+        }
+
+        private void SortButton_Click(object sender, EventArgs e)
+        {
+            SortDialogForm dialog = new SortDialogForm();
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                if (dialog.SortType == 0)
+                {
+                    tasks.Sort(SortByTitleDescending);
+                }
+                else if (dialog.SortType == 1)
+                {
+                    tasks.Sort(SortByPriorityDescending);
+                }
+                else if (dialog.SortType == 2)
+                {
+                    tasks.Sort(SortByCategoryDescending);
+                }
+                else if (dialog.SortType == 3)
+                {
+                    tasks.Sort(SortByDateDescending);
+                }
+                else if (dialog.SortType == 4)
+                {
+                    tasks.Sort(SortByStatusDescending);
+                }
+
+                listBox1.Items.Clear();
+                foreach (TodoTask task in tasks)
+                {
+                    listBox1.Items.Add(task);
+                }
+            }
+        }
+
+        private int SortByTitleDescending(TodoTask t1, TodoTask t2)
+        {
+            return string.Compare(t2.Title, t1.Title);
+        }
+
+        private int SortByPriorityDescending(TodoTask t1, TodoTask t2)
+        {
+            return t2.Priority.CompareTo(t1.Priority);
+        }
+
+        private int SortByCategoryDescending(TodoTask t1, TodoTask t2)
+        {
+            return string.Compare(t2.Category, t1.Category);
+        }
+
+        private int SortByDateDescending(TodoTask t1, TodoTask t2)
+        {
+            return t2.DateTodo.CompareTo(t1.DateTodo);
+        }
+
+        private int SortByStatusDescending(TodoTask t1, TodoTask t2)
+        {
+            return t2.IsCompleted.CompareTo(t1.IsCompleted);
         }
 
         private void FilterButton_Click(object sender, EventArgs e)
