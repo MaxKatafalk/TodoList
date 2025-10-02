@@ -23,21 +23,56 @@ namespace TodoList
 
     public class TodoTask
     {
-        public string Title;
-        public bool IsCompleted;
-        public DateTime Date;
-        public int Priority;
-        public string Category;
-        public DateTime DateTodo;
+        private string title;
+        private bool isCompleted;
+        private DateTime date;
+        private int priority;
+        private string category;
+        private DateTime dateTodo;
 
         public TodoTask(string title)
         {
-            Title = title;
-            IsCompleted = false;
-            Date = DateTime.Now;
-            Priority = 1;
-            Category = "Общая";
-            DateTodo = DateTime.Now;
+            this.Title = title;
+            this.IsCompleted = false;
+            this.Date = DateTime.Now;
+            this.Priority = 1;
+            this.Category = "";
+            this.DateTodo = DateTime.Now;
+        }
+        public string Title
+        {
+            get { return title; }
+            set { title = value; }
+        }
+
+        public bool IsCompleted
+        {
+            get { return isCompleted; }
+            set { isCompleted = value; }
+        }
+
+        public DateTime Date
+        {
+            get { return date; }
+            set { date = value; }
+        }
+
+        public int Priority
+        {
+            get { return priority; }
+            set { priority = value; }
+        }
+
+        public string Category
+        {
+            get { return category; }
+            set { category = value; }
+        }
+
+        public DateTime DateTodo
+        {
+            get { return dateTodo; }
+            set { dateTodo = value; }
         }
 
         public override string ToString()

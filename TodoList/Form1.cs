@@ -35,6 +35,12 @@ namespace TodoList
             button1.ForeColor = Color.White;
             button1.Click += Button1_Click;
 
+            Label Label1 = new Label();
+            Label1.Text = "Дважды нажмите на задачу чтобы отметить выполненной";
+            Label1.Location = new Point(10, 250);  
+            Label1.Width = 400;
+            Label1.ForeColor = Color.LightGray;   
+
             listBox1 = new ListBox();
             listBox1.Location = new Point(10, 40);
             listBox1.Width = 400;
@@ -72,6 +78,8 @@ namespace TodoList
             Controls.Add(listBox1);
             Controls.Add(editButton);
             Controls.Add(deleteButton);
+            Controls.Add(Label1);
+
         }
 
         private void EditButton_Click(object sender, EventArgs e)
@@ -162,7 +170,7 @@ namespace TodoList
 
         private int SortByDateDescending(TodoTask t1, TodoTask t2)
         {
-            return t2.DateTodo.CompareTo(t1.DateTodo);
+            return t1.DateTodo.CompareTo(t2.DateTodo);
         }
 
         private int SortByStatusDescending(TodoTask t1, TodoTask t2)
@@ -193,9 +201,5 @@ namespace TodoList
                 listBox1.Items[index] = tasks[index];
             }
         }
-
     }
-
-    
 }
-

@@ -74,8 +74,7 @@ public class EditTaskForm : Form
         datePicker = new DateTimePicker();
         datePicker.Location = new Point(130, 112);
         datePicker.Width = 120;
-        datePicker.Format = DateTimePickerFormat.Custom;
-        datePicker.CustomFormat = "dd.MM.yyyy";
+        datePicker.Format = DateTimePickerFormat.Short;
         datePicker.Value = DateTime.Now.AddDays(7);
 
         okButton = new Button();
@@ -110,8 +109,8 @@ public class EditTaskForm : Form
         categoryTextBox.Text = existingTask.Category;
         datePicker.Value = existingTask.DateTodo;
 
-        titleTextBox.ForeColor = Color.White;
-        categoryTextBox.ForeColor = Color.White;
+        titleTextBox.ForeColor = Color.Black;
+        categoryTextBox.ForeColor = Color.Black;
     }
     public void TitleTextBox_Enter(object sender, EventArgs e)
     {
